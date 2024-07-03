@@ -1,12 +1,13 @@
 package az.writhline.product.model;
 
-import az.writhline.product.enums.Category;
+
 import jakarta.persistence.*;
 import jdk.jfr.DataAmount;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
 @Entity
+@Builder
 @Data
 @Getter
 @Setter
@@ -18,11 +19,15 @@ public class ProductsEntity {
     Long id;
 
     @Column(unique=true)
-
     String name;
-
     Integer price;
-    @Enumerated(EnumType.STRING)
-    Category category;
     String description;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_details_id")
+    ProductDetails productDetails;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    Category category;
 }

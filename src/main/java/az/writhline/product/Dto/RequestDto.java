@@ -1,13 +1,16 @@
 package az.writhline.product.Dto;
 
-import az.writhline.product.enums.Category;
+
 import lombok.Data;
+import lombok.Getter;
 
 @Data
+
 public class RequestDto {
 
     String name;
     Integer price;
-    Category category;
+    CategoryDto category;
     String description;
+    ProductDetailDto productDetails;
 }

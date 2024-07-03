@@ -1,10 +1,9 @@
-package az.writhline.product.Controller;
+package az.writhline.product.controller;
 
 import az.writhline.product.Dto.RequestDto;
 import az.writhline.product.Dto.ResponseDto;
 import az.writhline.product.repository.CategoryCount;
 import az.writhline.product.service.ProductService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
