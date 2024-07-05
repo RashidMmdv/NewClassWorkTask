@@ -2,13 +2,9 @@ package az.writhline.product.service;
 
 import az.writhline.product.Dto.RequestDto;
 import az.writhline.product.Dto.ResponseDto;
-import az.writhline.product.model.Category;
-import az.writhline.product.model.ProductDetails;
-import az.writhline.product.model.ProductsEntity;
-import az.writhline.product.repository.CategoryCount;
-import az.writhline.product.repository.CategoryRepository;
-import az.writhline.product.repository.ProductDetailRepository;
-import az.writhline.product.repository.ProductRepository;
+import az.writhline.product.Dto.ShoppingCartDto;
+import az.writhline.product.model.ShoppingCarts;
+import az.writhline.product.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -26,43 +22,76 @@ public class ProductServiceImp implements ProductService{
     private final ModelMapper modelMapper;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
     @Override
     public ResponseDto create(RequestDto product) {
 
-
-        if (product == null) {
-            throw new IllegalArgumentException("Product cannot be null");
-        }
-
-        ProductsEntity products = modelMapper.map(product, ProductsEntity.class);
-
-
+        //        if (product == null) {
+//            throw new IllegalArgumentException("Product cannot be null");
+//        }
+//
+//        ProductsEntity products = modelMapper.map(product, ProductsEntity.class);
+//
+//
+////        if (product.getProductDetails() != null) {
+////            ProductDetails productDetail = modelMapper.map(product.getProductDetails(), ProductDetails.class);
+////            productDetail.setProduct(products);
+////            products.setProductDetails(productDetail);
+////        }
 //        if (product.getProductDetails() != null) {
 //            ProductDetails productDetail = modelMapper.map(product.getProductDetails(), ProductDetails.class);
-//            productDetail.setProduct(products);
+////            detailRepository.save(productDetail);  // Explicitly save product details
 //            products.setProductDetails(productDetail);
+////            productDetail.setProduct(products);
+////            products.setProductDetails(productDetail);
 //        }
-        if (product.getProductDetails() != null) {
-            ProductDetails productDetail = modelMapper.map(product.getProductDetails(), ProductDetails.class);
-            detailRepository.save(productDetail);  // Explicitly save product details
-            productDetail.setProduct(products);
-            products.setProductDetails(productDetail);
-        }
+//
+//        // Handle Category
+//        if (product.getCategory() != null) {
+//            Category category = categoryRepository.findByName(product.getCategory().getName());
+//            if (category == null) {
+//                category = new Category();
+//                category.setName(product.getCategory().getName());
+//                categoryRepository.save(category);
+//            }
+//            products.setCategory(category);
+//        }
 
-        // Handle Category
-        if (product.getCategory() != null) {
-            Category category = categoryRepository.findByName(product.getCategory().getName());
-            if (category == null) {
-                category = new Category();
-                category.setName(product.getCategory().getName());
-                categoryRepository.save(category);
-            }
-            products.setCategory(category);
-        }
 
-        // Save the product
-        return modelMapper.map(productRepository.save(products), ResponseDto.class);
+
+        //--------------------
+
+//        if (product.getProductDetails() == null) {
+//            new ProductDetails();
+//        }
+//
+//
+//        ProductDetails productDetails = ProductDetails.builder()
+//                .color(product.getProductDetails().getColor())
+//                .image_url(product.getProductDetails().getImageUrl())
+//                .build();
+//
+//        ProductsEntity products = ProductsEntity.builder()
+//                .name(product.getName())
+//                .price(product.getPrice())
+//                .description(product.getDescription())
+//                .productDetails(productDetails)
+//                .build();
+
+        return null;
     }
+
 
 
     @Override
@@ -88,4 +117,6 @@ public class ProductServiceImp implements ProductService{
     public List<CategoryCount> countProductsByCategory() {
         return productRepository.countProductsByCategory();
     }
+
+
 }

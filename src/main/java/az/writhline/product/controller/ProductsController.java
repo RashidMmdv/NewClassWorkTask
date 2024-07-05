@@ -2,9 +2,11 @@ package az.writhline.product.controller;
 
 import az.writhline.product.Dto.RequestDto;
 import az.writhline.product.Dto.ResponseDto;
+import az.writhline.product.Dto.ShoppingCartDto;
 import az.writhline.product.repository.CategoryCount;
 import az.writhline.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductsController {
     private final ProductService productService;
+
 
     @PostMapping
     public ResponseDto create(@RequestBody RequestDto product){
