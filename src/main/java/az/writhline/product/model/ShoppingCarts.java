@@ -1,10 +1,7 @@
 package az.writhline.product.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +23,7 @@ public class ShoppingCarts {
             joinColumns = @JoinColumn(name = "shopping_cart_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
+
     private Set<ProductsEntity> products = new HashSet<>();
 
 }

@@ -12,6 +12,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class ProductsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,11 +31,6 @@ public class ProductsEntity {
     @JoinColumn(name = "category_id")
     Category category;
 
-//    @ManyToMany
-//    @JoinTable(name = "product_shoppingcart",
-//            joinColumns = @JoinColumn(name = "product_id"),
-//            inverseJoinColumns = @JoinColumn(name = "shoppingcart_id"))
-//    Set<ShoppingCarts> shoppingCarts;
 
     @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
     private Set<ShoppingCarts> shoppingCarts = new HashSet<>();

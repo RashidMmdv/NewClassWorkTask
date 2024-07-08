@@ -19,5 +19,6 @@ public class Category {
     String name;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<ProductsEntity> products;
 }
