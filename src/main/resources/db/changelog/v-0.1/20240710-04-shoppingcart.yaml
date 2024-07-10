@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20240710-02
+      author: rashid
+      changes:
+        - createTable:
+            tableName: shopping_carts
+            columns:
+              - column:
+                  name: "id"
+                  type: "BIGINT"
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: "pk_shoppingcarts"
+              - column:
+                  name: "name"
+                  type: "VARCHAR(255)"
+

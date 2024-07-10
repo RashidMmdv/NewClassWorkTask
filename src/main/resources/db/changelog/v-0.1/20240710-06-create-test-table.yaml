@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20240710-02
+      author: rashid
+      changes:
+        - createTable:
+            tableName: test
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: firstName
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+
+  - changeSet:
+      id: 20240710-02
+      author: rashid
+      changes:
+        - renameColumn:
+            tableName: test
+            oldColumnName: name
+            newColumnName: firstName
+            columnDataType: VARCHAR(255)
+
+  - changeSet:
+      id: 20240710-03
+      author: rashid
+      changes:
+        - dropColumn:
+            columnName: firstName
+            tableName: test
+
+  - changeSet:
+      id: 20240710-05
+      author: rashid
+      changes:
+        - dropTable:
+            tableName: test_rename

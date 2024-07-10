@@ -1,0 +1,81 @@
+databaseChangeLog:
+  - changeSet:
+      id:  20240710-02
+      author:  rashid
+      changes:
+        - createTable:
+            tableName:  products_entity
+            columns:
+              - column:
+                  name:  id
+                  type:  BIGINT
+                  autoIncrement:  true
+                  constraints:
+                    primaryKey:  true
+                    nullable:  false
+              - column:
+                  name:  name
+                  type:  varchar(50)
+              - column:
+                  name:  description
+                  type:  varchar(50)
+              - column:
+                  name:  price
+                  type:  INTEGER
+              - column:
+                  name:  category_id
+                  type:  BIGINT
+              - column:
+                  name: product_details_id
+                  type: BIGINT
+
+
+  - changeSet:
+      id: 20240710-03
+      author: rashid
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                    name: category_id
+            indexName: FK65k48evxfftr8lf49bxwkcbde
+            tableName: products_entity
+  - changeSet:
+      id: 20240710-04
+      author: rashid
+      changes:
+      - addForeignKeyConstraint:
+          baseColumnNames: category_id
+          baseTableName: products_entity
+          constraintName: FK65k48evxfftr8lf49bxwkcbde
+          onDelete: RESTRICT
+          onUpdate: RESTRICT
+          referencedColumnNames: id
+          referencedTableName: category
+          validate: true
+
+  - changeSet:
+      id: 20240710-05
+      author: rashid
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: product_details_id
+            indexName: UKld8ewl7ktx0owivountjpifkv
+            tableName: products_entity
+  - changeSet:
+      id: 20240710-06
+      author: rashid
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: product_details_id
+            baseTableName: products_entity
+            constraintName: UKld8ewl7ktx0owivountjpifkv
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableName: products_entity
+            validate: true
+
+
