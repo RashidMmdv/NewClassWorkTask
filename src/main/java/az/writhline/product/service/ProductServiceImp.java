@@ -3,6 +3,9 @@ package az.writhline.product.service;
 import az.writhline.product.Dto.RequestDto;
 import az.writhline.product.Dto.ResponseDto;
 import az.writhline.product.Dto.ShoppingCartDto;
+import az.writhline.product.model.Category;
+import az.writhline.product.model.ProductDetails;
+import az.writhline.product.model.ProductsEntity;
 import az.writhline.product.model.ShoppingCarts;
 import az.writhline.product.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -89,7 +92,32 @@ public class ProductServiceImp implements ProductService{
 //                .productDetails(productDetails)
 //                .build();
 
-        return null;
+//        ShoppingCarts cart = new ShoppingCarts();
+//        cart.setName(name.getName());
+//        ShoppingCarts savedCart = shoppingCartRepository.save(cart);
+//        return modelMapper.map(savedCart, ShoppingCartDto.class);
+
+        Category category = Category.builder()
+                .name(product.getCategory().getName())
+                .build();
+        ProductDetails details = ProductDetails.builder()
+                .color(product.getProductDetails().getColor())
+                .image_url(product.getProductDetails().getImageUrl())
+                .build();
+
+
+        ProductsEntity products = ProductsEntity.builder()
+                .name(product.getName())
+                .price(product.getPrice())
+                .description(product.getDescription())
+                .productDetails(details)
+                .category(category)
+                .build();
+        categoryRepository.save(category);
+        detailRepository.save(details);
+
+
+        return modelMapper.map(productRepository.save(products),ResponseDto.class);
     }
 
 

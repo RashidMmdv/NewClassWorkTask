@@ -14,7 +14,7 @@ public class ResponseDto {
     Long id;
     String name;
     Integer price;
-    String  categoryName;
+    String  category;
     String description;
     ProductDetailDto productDetails;
 }

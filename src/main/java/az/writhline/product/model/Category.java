@@ -10,7 +10,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@Data
 @Entity
 public class Category {
     @Id
@@ -18,7 +17,4 @@ public class Category {
     Long id;
     String name;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private List<ProductsEntity> products;
 }
