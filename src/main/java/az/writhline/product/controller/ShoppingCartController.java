@@ -3,6 +3,7 @@ package az.writhline.product.controller;
 import az.writhline.product.Dto.ProductIdDto;
 import az.writhline.product.Dto.ShoppingCartDto;
 import az.writhline.product.Dto.ShoppingCartRequestDto;
+import az.writhline.product.model.ShoppingCarts;
 import az.writhline.product.service.ShoppingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +22,8 @@ public class ShoppingCartController {
     }
 
     @PostMapping("/{id}/product")
-    public ShoppingCartDto addProductToCart(@PathVariable Long id, @RequestBody ProductIdDto productId) {
-        return shoppingService.addProductToCart(id, productId.getProductId());
+    public ShoppingCartDto addProductToCart(@PathVariable Long id, @RequestBody Long productId) {
+        return shoppingService.addProductToCart(id, productId);
     }
 
     @DeleteMapping("/{id}/product/{productId}")
@@ -31,7 +32,8 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/{id}")
-    public ShoppingCartDto getShoppingCartById(@PathVariable Long id) {
-        return shoppingService.getShoppingCartById(id);
+    public ShoppingCarts getShoppingCartById(@PathVariable Long id) {
+
+       return shoppingService.getShoppingCartById(id);
     }
 }

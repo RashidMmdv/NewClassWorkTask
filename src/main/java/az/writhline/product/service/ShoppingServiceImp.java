@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +27,6 @@ public class ShoppingServiceImp implements ShoppingService {
 
     @Override
     public ShoppingCartDto createShoppingCart(ShoppingCartRequestDto name) {
-
         ShoppingCarts cart = new ShoppingCarts();
         cart.setName(name.getName());
         ShoppingCarts savedCart = shoppingCartRepository.save(cart);
@@ -35,32 +35,38 @@ public class ShoppingServiceImp implements ShoppingService {
 
     @Override
     public ShoppingCartDto addProductToCart(Long cartId, Long productId) {
-        Optional<ProductsEntity> products = productRepository.findById(productId);
-        Optional<ShoppingCarts> carts = shoppingCartRepository.findById(cartId);
 
-//        log.info("Product is {}",products);
-//        log.info("Cart is {}",carts);
+        ProductsEntity product = productRepository.findById(productId)
+                .orElseThrow(()->new RuntimeException("Product not found!"));
+        ShoppingCarts carts = shoppingCartRepository.findById(cartId)
+                .orElseThrow(()->new RuntimeException("Cart not found!"));
 
-        ShoppingCarts shoppingCarts = carts.get();
-        ProductsEntity productsEntity = products.get();
-        shoppingCarts.getProducts().add(productsEntity);
+        log.info("Product is {}",product);
+        log.info("Cart is {}",carts);
+        carts.getProducts().add(product);
 
-        ShoppingCarts saveCart = shoppingCartRepository.save(shoppingCarts);
+        ShoppingCarts saveCart = shoppingCartRepository.save(carts);
         return modelMapper.map(saveCart, ShoppingCartDto.class);
     }
 
     @Override
-    public void removeProductFromCart(Long id, Long productId) {
-        shoppingCartRepository.deleteById(id);
-        productRepository.deleteById(productId);
+    public void removeProductFromCart(Long id,Long productId) {
+        ShoppingCarts carts = shoppingCartRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("Cart not found!"));
+        ProductsEntity product = productRepository.findById(productId)
+                .orElseThrow(()->new RuntimeException("Product not found!"));
+        carts.getProducts().remove(product);
+        shoppingCartRepository.save(carts);
+
 
     }
 
     @Override
-    public ShoppingCartDto getShoppingCartById(Long id) {
-        ProductsEntity products = shoppingCartRepository.findByProducts();
-        log.info("Product is {}",products);
-        return null;
+    public ShoppingCarts getShoppingCartById(Long id) {
+        ShoppingCarts shoppingCarts = shoppingCartRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Shopping cart not found"));
+        log.info("Cart is {}",shoppingCarts);
+        return shoppingCarts;
     }
 
 }

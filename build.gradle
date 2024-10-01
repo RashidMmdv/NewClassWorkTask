@@ -27,6 +27,11 @@ dependencies {
     implementation("org.liquibase:liquibase-core:4.22.0"){
         exclude group: 'ch.qos.logback'
     }
+    implementation "junit:junit:$junitVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+    testImplementation("org.junit.jupiter:junit-jupiter-params:$junitJupiterVersion")
+
 
 
     implementation 'org.modelmapper:modelmapper:2.4.1'

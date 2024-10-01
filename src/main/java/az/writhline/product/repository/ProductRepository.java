@@ -13,8 +13,8 @@ public interface ProductRepository extends JpaRepository<ProductsEntity,Long> {
     @Query("SELECT p.category AS category, COUNT(p) AS count FROM ProductsEntity p GROUP BY p.category")
     List<CategoryCount> countProductsByCategory();
 
-//    @Override
-//    Optional<ProductsEntity> findById(Long id);
-//    @Query("SELECT (p.name, p.price, c.name)
-//    List<ProductProjection> findAllProducts();
+////    @Override
+////    Optional<ProductsEntity> findById(Long id);
+//    @Query("SELECT ProductsEntity.id ")
+//    List<ProductsEntity> findAllProducts();
 }

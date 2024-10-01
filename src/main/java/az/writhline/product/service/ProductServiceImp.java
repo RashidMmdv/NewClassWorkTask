@@ -28,74 +28,8 @@ public class ProductServiceImp implements ProductService{
 
 
 
-
-
-
-
-
-
-
-
-
     @Override
     public ResponseDto create(RequestDto product) {
-
-        //        if (product == null) {
-//            throw new IllegalArgumentException("Product cannot be null");
-//        }
-//
-//        ProductsEntity products = modelMapper.map(product, ProductsEntity.class);
-//
-//
-////        if (product.getProductDetails() != null) {
-////            ProductDetails productDetail = modelMapper.map(product.getProductDetails(), ProductDetails.class);
-////            productDetail.setProduct(products);
-////            products.setProductDetails(productDetail);
-////        }
-//        if (product.getProductDetails() != null) {
-//            ProductDetails productDetail = modelMapper.map(product.getProductDetails(), ProductDetails.class);
-////            detailRepository.save(productDetail);  // Explicitly save product details
-//            products.setProductDetails(productDetail);
-////            productDetail.setProduct(products);
-////            products.setProductDetails(productDetail);
-//        }
-//
-//        // Handle Category
-//        if (product.getCategory() != null) {
-//            Category category = categoryRepository.findByName(product.getCategory().getName());
-//            if (category == null) {
-//                category = new Category();
-//                category.setName(product.getCategory().getName());
-//                categoryRepository.save(category);
-//            }
-//            products.setCategory(category);
-//        }
-
-
-
-        //--------------------
-
-//        if (product.getProductDetails() == null) {
-//            new ProductDetails();
-//        }
-//
-//
-//        ProductDetails productDetails = ProductDetails.builder()
-//                .color(product.getProductDetails().getColor())
-//                .image_url(product.getProductDetails().getImageUrl())
-//                .build();
-//
-//        ProductsEntity products = ProductsEntity.builder()
-//                .name(product.getName())
-//                .price(product.getPrice())
-//                .description(product.getDescription())
-//                .productDetails(productDetails)
-//                .build();
-
-//        ShoppingCarts cart = new ShoppingCarts();
-//        cart.setName(name.getName());
-//        ShoppingCarts savedCart = shoppingCartRepository.save(cart);
-//        return modelMapper.map(savedCart, ShoppingCartDto.class);
 
         Category category = Category.builder()
                 .name(product.getCategory().getName())
