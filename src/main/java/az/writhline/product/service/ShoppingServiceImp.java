@@ -9,10 +9,8 @@ import az.writhline.product.repository.ShoppingCartsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -22,15 +20,18 @@ public class ShoppingServiceImp implements ShoppingService {
     private final ShoppingCartsRepository shoppingCartRepository;
     private final ProductRepository productRepository;
     private final ModelMapper modelMapper;
-
+    private final RedisTemplate<Long, ShoppingCarts> redisTemplate;
 
 
     @Override
     public ShoppingCartDto createShoppingCart(ShoppingCartRequestDto name) {
+
         ShoppingCarts cart = new ShoppingCarts();
+
         cart.setName(name.getName());
         ShoppingCarts savedCart = shoppingCartRepository.save(cart);
-        return modelMapper.map(savedCart, ShoppingCartDto.class);
+         redisTemplate.opsForValue().set(cart.getId(),savedCart);
+        return modelMapper.map(savedCart,ShoppingCartDto.class);
     }
 
     @Override
@@ -42,10 +43,11 @@ public class ShoppingServiceImp implements ShoppingService {
                 .orElseThrow(()->new RuntimeException("Cart not found!"));
 
         log.info("Product is {}",product);
-        log.info("Cart is {}",carts);
         carts.getProducts().add(product);
-
+        product.getShoppingCarts().add(carts);
+        log.info("Cart is {}",carts);
         ShoppingCarts saveCart = shoppingCartRepository.save(carts);
+        redisTemplate.opsForValue().set(carts.getId(),carts);
         return modelMapper.map(saveCart, ShoppingCartDto.class);
     }
 
@@ -55,7 +57,10 @@ public class ShoppingServiceImp implements ShoppingService {
                 .orElseThrow(()->new RuntimeException("Cart not found!"));
         ProductsEntity product = productRepository.findById(productId)
                 .orElseThrow(()->new RuntimeException("Product not found!"));
-        carts.getProducts().remove(product);
+        ShoppingCarts shoppingCarts = redisTemplate.opsForValue().get(id);
+                carts.getProducts().remove(product);
+                redisTemplate.opsForValue().getAndDelete(id);
+        log.info("Product is {}",carts);
         shoppingCartRepository.save(carts);
 
 
@@ -65,8 +70,18 @@ public class ShoppingServiceImp implements ShoppingService {
     public ShoppingCarts getShoppingCartById(Long id) {
         ShoppingCarts shoppingCarts = shoppingCartRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Shopping cart not found"));
-        log.info("Cart is {}",shoppingCarts);
-        return shoppingCarts;
+        ShoppingCarts carts = redisTemplate.opsForValue().get(id);
+
+        if (shoppingCarts == null) {
+            log.info("Shopping cart DB");
+            redisTemplate.opsForValue().set(id, modelMapper.map(shoppingCarts, ShoppingCarts.class));
+            return shoppingCarts;
+        }
+        else {
+            log.info("Shopping cart Cache");
+            return shoppingCarts;
+        }
+
     }
 
 }

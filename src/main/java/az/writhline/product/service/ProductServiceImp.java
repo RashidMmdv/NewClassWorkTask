@@ -8,22 +8,29 @@ import az.writhline.product.model.ProductDetails;
 import az.writhline.product.model.ProductsEntity;
 import az.writhline.product.model.ShoppingCarts;
 import az.writhline.product.repository.*;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImp implements ProductService{
 
+    private static final Logger log = LoggerFactory.getLogger(ProductServiceImp.class);
     private final ProductRepository productRepository;
     private final ProductDetailRepository detailRepository;
     private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
 
+    private final Map<Long , ProductsEntity> productEntityCache = new HashMap<>();
 
 
 
@@ -79,6 +86,22 @@ public class ProductServiceImp implements ProductService{
     public List<CategoryCount> countProductsByCategory() {
         return productRepository.countProductsByCategory();
     }
+
+//    @Override
+//    @Transactional
+//    public ProductsEntity getProduct(Long id) {
+//        ProductsEntity products = productEntityCache.get(id);
+//        if (products == null) {
+//            log.info("Get from DB {} ", id);
+//            products = productRepository.findById(id).orElseThrow(RuntimeException::new);
+//            productEntityCache.put(id, products);
+//            return products;
+//        } else {
+//            log.info("Get from Cache {} ", id);
+//            log.info(products.toString());
+//            return products;
+//        }
+//}
 
 
 }

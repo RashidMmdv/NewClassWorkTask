@@ -3,6 +3,7 @@ package az.writhline.product.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +12,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShoppingCarts {
+public class ShoppingCarts implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -23,7 +24,8 @@ public class ShoppingCarts {
             joinColumns = @JoinColumn(name = "shopping_cart_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<ProductsEntity> products = new HashSet<>();
 
 }

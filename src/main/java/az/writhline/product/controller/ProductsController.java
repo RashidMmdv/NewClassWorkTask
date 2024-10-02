@@ -3,6 +3,7 @@ package az.writhline.product.controller;
 import az.writhline.product.Dto.RequestDto;
 import az.writhline.product.Dto.ResponseDto;
 import az.writhline.product.Dto.ShoppingCartDto;
+import az.writhline.product.model.ProductsEntity;
 import az.writhline.product.repository.CategoryCount;
 import az.writhline.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -35,4 +36,10 @@ public class ProductsController {
     public List<CategoryCount> countProductsByCategory() {
         return productService.countProductsByCategory();
     }
+
+
+//    @GetMapping("/{id}")
+//    public ProductsEntity getProduct(@PathVariable Long id){
+//        return productService.getProduct(id);
+//    }
 }

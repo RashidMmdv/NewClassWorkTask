@@ -21,8 +21,8 @@ public class ShoppingCartController {
         return shoppingService.createShoppingCart(name);
     }
 
-    @PostMapping("/{id}/product")
-    public ShoppingCartDto addProductToCart(@PathVariable Long id, @RequestBody Long productId) {
+    @PostMapping("/{id}/product/{productId}")
+    public ShoppingCartDto addProductToCart(@PathVariable Long id, @PathVariable Long productId) {
         return shoppingService.addProductToCart(id, productId);
     }
 

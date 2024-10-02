@@ -13,6 +13,15 @@ services:
 
 
 
+  redis:
+    container_name: redis-ms25
+    image: redis
+    ports:
+      -  6381:6379
+
+    volumes:
+      - db_data:/var/lib/redis
+
 volumes:
   db_data:
 
