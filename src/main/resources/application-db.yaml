@@ -12,10 +12,14 @@ spring:
     url: jdbc:mysql://localhost:3306/products?allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: password
+    hikari:
+      maximum-pool-size: 50
+      minimum-idle: 3
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: update
+    open-in-view: false
 
   liquibase:
     enabled: false

@@ -1,5 +1,6 @@
 package az.writhline.product.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,5 +23,6 @@ public class ProductDetails implements Serializable {
     @OneToOne(mappedBy = "productDetails",fetch = FetchType.LAZY)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @JsonIgnore
      ProductsEntity product;
 }

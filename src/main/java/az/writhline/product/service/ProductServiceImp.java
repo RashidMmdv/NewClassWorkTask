@@ -30,7 +30,7 @@ public class ProductServiceImp implements ProductService{
     private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
 
-    private final Map<Long , ProductsEntity> productEntityCache = new HashMap<>();
+
 
 
 
@@ -72,7 +72,7 @@ public class ProductServiceImp implements ProductService{
                     .toList();
         }
 
-        return productRepository.getProductsEntityByPriceBetween(from, to)
+        return productRepository.getProductsEntityByIdBetween(from, to)
                 .stream()
                 .map(productsEntity -> modelMapper.map(productsEntity,ResponseDto.class))
                 .toList();
@@ -87,21 +87,12 @@ public class ProductServiceImp implements ProductService{
         return productRepository.countProductsByCategory();
     }
 
-//    @Override
-//    @Transactional
-//    public ProductsEntity getProduct(Long id) {
-//        ProductsEntity products = productEntityCache.get(id);
-//        if (products == null) {
-//            log.info("Get from DB {} ", id);
-//            products = productRepository.findById(id).orElseThrow(RuntimeException::new);
-//            productEntityCache.put(id, products);
-//            return products;
-//        } else {
-//            log.info("Get from Cache {} ", id);
-//            log.info(products.toString());
-//            return products;
-//        }
-//}
+    @Override
+    public ProductsEntity getProduct(Long id) {
+        return  productRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("Product not found"));
+
+}
 
 
 }

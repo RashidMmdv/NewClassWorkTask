@@ -21,6 +21,6 @@ public interface ProductService {
 
     public List<CategoryCount> countProductsByCategory();
 
-//
-//    ProductsEntity getProduct(Long id);
+
+    ProductsEntity getProduct(Long id);
 }

@@ -38,8 +38,8 @@ public class ProductsController {
     }
 
 
-//    @GetMapping("/{id}")
-//    public ProductsEntity getProduct(@PathVariable Long id){
-//        return productService.getProduct(id);
-//    }
+    @GetMapping("/{id}")
+    public ProductsEntity getProduct(@PathVariable Long id){
+        return productService.getProduct(id);
+    }
 }

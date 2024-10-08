@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<ProductsEntity,Long> {
-    List<ProductsEntity> getProductsEntityByPriceBetween(Integer from, Integer to);
+    List<ProductsEntity> getProductsEntityByIdBetween(Integer from, Integer to);
 
     @Query("SELECT p.category AS category, COUNT(p) AS count FROM ProductsEntity p GROUP BY p.category")
     List<CategoryCount> countProductsByCategory();
