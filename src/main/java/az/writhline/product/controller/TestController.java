@@ -39,4 +39,20 @@ public class TestController {
                 .name(product.getName())
                 .build();
     }
+
+    @GetMapping("/hello")
+    public String getHello(){
+
+        return "Hello World";
+    }
+    @GetMapping("/user")
+    public String getUser(){
+
+        return "User";
+    }
+    @GetMapping("/admin")
+    public String getAdmin(){
+
+        return "Admin";
+    }
 }
